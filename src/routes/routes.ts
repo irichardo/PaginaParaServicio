@@ -1,8 +1,8 @@
 import express from "express";
-import Subscription from "src/infrastructure/database/models/suscription";
+import Subscription from "src/infrastructure/database/models/subscription";
 import User from "src/infrastructure/database/models/user";
 import bcryptjs from "bcryptjs";
-import { userController } from "src/controllers/userController";
+import  { createUserController } from "src/infrastructure/controller/CreateUserController"; "src/infrastructure/controller/CreateUserController";
 import Console from "src/utils/console";
 const router = express.Router();
 
@@ -11,15 +11,15 @@ const router = express.Router();
  * 
  */
 
-router.get("/", async (req, res) => {
-    const data = await User.findAll();
-    if (data.length === 0) res.send("No users found");
-    else {
-        res.status(200).send(data);
-    }
-});
+// router.get("/", async (req, res) => {
+//     const data = await User.findAll();
+//     if (data.length === 0) res.send("No users found");
+//     else {
+//         res.status(200).send(data);
+//     }
+// });
 
-router.post("/user/createUsers", userController.createUser);
+router.post("/user/createUsers",(req,res)=>createUserController(req,res));
 
 // router.post("/createObjects", async (req, res) => {
 //     try {
@@ -43,7 +43,7 @@ router.post("/user/createUsers", userController.createUser);
 //     }
 // });
 
-router.put("/user/changeUserData",userController.updateDataUser);
+// router.put("/user/changeUserData",userController.updateDataUser);
 
 router.put("/user/changeUserEmail", async (req, res) => {
     try {
@@ -122,25 +122,25 @@ router.post("/authorization/loginValidation", async (req, res) => {
     }
 });
 
-router.post('/subscribe', async(req,res)=>{
-    const { email, subscription } = req.body;
-    if(email === undefined) return res.status(401).json({ message: "data missing"});
-    try{
-        const findUser = await User.findOne({where:{email}, include:Subscription});
-        if(findUser.Subscription.dataValues.type === subscription) return res.status(200).send({message:"Already subscribed"})
-        if(findUser === null) {
-            Console.Denied("User doesn't exist")
-            return res.status(401).json({ message: "User does not exist"});
-        }
-        const findSubscription = await Subscription.findOne({where:{type:subscription}});
-        //@ts-ignore
-        await findUser?.setSubscription(findSubscription)
-        Console.Approved("User subscription updated successfully")
-        res.status(200).json({ message:"User subscription updated successfully"});
-    }
-    catch(err){
-        console.log(err);
-    }
-    })
+// router.post('/subscribe', async(req,res)=>{
+//     const { email, subscription } = req.body;
+//     if(email === undefined) return res.status(401).json({ message: "data missing"});
+//     try{
+//         const findUser = await User.findOne({where:{email}, include:Subscription});
+//         if(findUser.Subscription.dataValues.type === subscription) return res.status(200).send({message:"Already subscribed"})
+//         if(findUser === null) {
+//             Console.Denied("User doesn't exist")
+//             return res.status(401).json({ message: "User does not exist"});
+//         }
+//         const findSubscription = await Subscription.findOne({where:{type:subscription}});
+//         //@ts-ignore
+//         await findUser?.setSubscription(findSubscription)
+//         Console.Approved("User subscription updated successfully")
+//         res.status(200).json({ message:"User subscription updated successfully"});
+//     }
+//     catch(err){
+//         console.log(err);
+//     }
+//     })
 
 export default router;

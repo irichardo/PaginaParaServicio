@@ -1,8 +1,39 @@
 import { SequelizeUser } from "src/infrastructure/database/models/user";
-import { createUserService } from "../services/createUserService";
-import { User } from "../entities/User";
+import { UserTypes } from "src/libs/types";
+import { createdUserInDB, getUserInstance } from "../services/createUserService";
 
 
-const SequelizeUserRepository = async(user:SequelizeUser)=>{
-    const userCreateData = createUserService(user);
+export const SequelizeUserRepository = async (user:SequelizeUser)=>{
+    const verifyUser = await getUserInstance(user);
+    // const userObject: UserTypes = {
+    //     username: verifyUser.getUsername(),
+    //     password: verifyUser.getPassword(),
+    //     email: verifyUser.getEmail(),
+    //     role: verifyUser.getRole()
+    // }
+    const created = await createdUserInDB({
+        email: verifyUser.getEmail(),
+        password: verifyUser.getPassword(),
+        role: verifyUser.getRole(),
+        username: verifyUser.getUsername()
+    });
+    return {
+        // @ts-ignore
+        id:created.id
+    };
 }
+
+// export const createUserService = async (user: UserTypes):Promise< {id:number}> => {
+//     const data = await getUserInstance(user);
+//     const userCreate: UserTypes = {
+//       email: data.getEmail(),
+//       username: data.getUsername(),
+//       password: data.getPassword(),
+//       role: data.getRole(),
+//     };
+//     //@ts-ignore
+//     const { id } = await createdUserInDB(userCreate);
+//     return id;
+//   };
+
+// Abstracciones para usar el dominio

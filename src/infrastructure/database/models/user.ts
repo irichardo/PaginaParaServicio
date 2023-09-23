@@ -1,13 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/sequelize'
-import { UserRow } from 'src/libs/types';
+import { Role, UserRow } from 'src/libs/types';
 
 export class SequelizeUser extends Model<UserRow, Omit<UserRow, 'id'>> {
-    // declare id: number;
     declare email: string;
     declare username:string;
     declare password: string;
-    declare role: string;
+    declare role: Role;
   }
 
 SequelizeUser.init({
@@ -30,7 +29,7 @@ SequelizeUser.init({
         validate:{
             // isInteger: true,
             isIn:{
-                args:[["Client","Admin"]],
+                args:[["User","Admin"]],
                 msg:'Value must be client or admin'
             }
         },

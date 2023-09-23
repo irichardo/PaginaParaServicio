@@ -1,4 +1,4 @@
-import Subscription from "../models/suscription";
+import Subscription from "../models/subscription";
 import subscriptionType from "src/libs/suscriptionNames";
 
 const seedSubscription = async ()=>{
