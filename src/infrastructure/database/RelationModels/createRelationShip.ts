@@ -1,6 +1,7 @@
 import sequelize from "../config/sequelize";
 
-const { Subscription, User } = sequelize.models;
+const { Subscriptions, User } = sequelize.models;
 
-Subscription.hasMany(User);
-User.belongsTo(Subscription);
+Subscriptions.hasMany(User);
+User.belongsTo(Subscriptions);
+// console.log(Object.keys(Subscriptions.hasMany(User)),Object.keys(User.belongsTo(Subscriptions)));

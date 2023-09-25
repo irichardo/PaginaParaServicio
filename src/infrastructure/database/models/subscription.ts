@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/sequelize'
+import { SequelizeUser } from '../models/user';
 
 class Subscription extends Model {}
 
@@ -31,6 +32,6 @@ Subscription.init({
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     }
-}, { sequelize, modelName: 'Subscription', timestamps: false })
+}, { sequelize, modelName: 'Subscriptions', timestamps: false })
 
 export default Subscription;

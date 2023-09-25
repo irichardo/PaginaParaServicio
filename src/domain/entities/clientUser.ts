@@ -1,9 +1,9 @@
 import { UserTypes } from "src/libs/types";
 import { Role } from "src/libs/types";
 import { CustomError } from "../errors/customError";
-import { regex } from "src/libs/regex";
-import encryptPassword from "src/libs/encryptPassword";
-import SequelizeUser from "src/infrastructure/database/models/user";
+import { regex } from "../../libs/regex";
+import encryptPassword from "../../libs/encryptPassword";
+import SequelizeUser from "../../infrastructure/database/models/user";
 
 export const verifyUser = async (
   email: string,

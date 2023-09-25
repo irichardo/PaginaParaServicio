@@ -1,16 +1,9 @@
-import { SequelizeUser } from "src/infrastructure/database/models/user";
-import { UserTypes } from "src/libs/types";
+import { SequelizeUser } from "../../infrastructure/database/models/user";
 import { createdUserInDB, getUserInstance } from "../services/createUserService";
 
 
 export const SequelizeUserRepository = async (user:SequelizeUser)=>{
     const verifyUser = await getUserInstance(user);
-    // const userObject: UserTypes = {
-    //     username: verifyUser.getUsername(),
-    //     password: verifyUser.getPassword(),
-    //     email: verifyUser.getEmail(),
-    //     role: verifyUser.getRole()
-    // }
     const created = await createdUserInDB({
         email: verifyUser.getEmail(),
         password: verifyUser.getPassword(),

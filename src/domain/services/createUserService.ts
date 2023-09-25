@@ -1,11 +1,12 @@
 import {
   SequelizeUser,
-} from "src/infrastructure/database/models/user";
-import { Role, UserTypes } from "src/libs/types";
+} from "../../infrastructure/database/models/user";
+import { Role, UserTypes } from "../../libs/types";
 import { User } from "../entities/User";
-import Subscription from "src/infrastructure/database/models/subscription";
+// import Subscription from "../../infrastructure/database/models/subscription";
 import { SequelizeUserRepository } from "../repositories/sequelizeUserRepository";
 import { CustomError } from "../errors/customError";
+import { setSubscription } from "./createSubscription";
 
 export const createUserService = async (user: UserTypes):Promise< {id:number}> => {
   // @ts-ignore
@@ -28,13 +29,7 @@ export const getUserInstance = (user: UserTypes) => {
 };
 
 export const createdUserInDB = async (user: UserTypes) => {
-    const created = await SequelizeUser.create(user).then(async (item) => {
-    // Set Subscription basic;
-    const findSub = await Subscription.findOne({ where: { type: 0 } })
-    //@ts-ignore
-    item.setSubscription(findSub);
-    return item;
-  });
-  // console.lo
-  return created;
+  const created = await SequelizeUser.create(user)
+  const relatedUser = await setSubscription({user:created,type:0});
+  return relatedUser;
 };

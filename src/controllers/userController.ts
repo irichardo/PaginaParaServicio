@@ -1,19 +1,5 @@
 import { Request, Response } from "express";
 import { updateUser } from "src/utils/updateUser";
-import { CustomError } from "src/domain/errors/customError";
-import { createUserService } from "src/domain/services/createUserService";
-
-// const createUser = async (req: Request, res: Response) => {
-//   try {
-//     const user = await createUserService(req.body)
-//     res.status(200).send(user.toString());
-//   } catch (error) {
-//     if(error instanceof CustomError) {
-//       console.log("Error: ", error.message);
-//     }
-//     res.status(500).send('Internal Service Error').end();
-//   }
-// };
 
 const updateDataUser = async (req: Request, res: Response) => {
   try {
@@ -34,6 +20,5 @@ const updateDataUser = async (req: Request, res: Response) => {
 };
 
 export const userController = {
-  // createUser,
   updateDataUser,
 };

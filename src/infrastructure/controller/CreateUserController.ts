@@ -28,6 +28,7 @@ export const createUserController = async (req:Request,res:Response) => {
             console.error(err.message);
             return res.status(400).json({error: err.message});
         }
+        console.log(err);
         return res.status(500).send('Internal Server Error');
     }
 }

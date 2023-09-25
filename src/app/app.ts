@@ -1,11 +1,10 @@
 import 'dotenv/config';
 import express from 'express';
 import sequelize from '../infrastructure/database/config/sequelize';
-import seedSubscription from '../infrastructure/database/seeds/seeds';
 import userRoutes from '../routes/routes';
-
 import '../infrastructure/database/RelationModels/mapModels';
 import '../infrastructure/database/RelationModels/createRelationShip';
+import seedSubscription from '../infrastructure/database/seeds/seeds';
 
 const app = express();
 

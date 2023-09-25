@@ -1,4 +1,4 @@
-import { Role, UserTypes } from "src/libs/types";
+import { Role, UserTypes } from "../../libs/types";
 import { verifyUser } from "./clientUser";
 /**
  * @user : Instance of User model
